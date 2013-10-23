@@ -38,8 +38,8 @@
 		<s:VGroup height="100%" width="100%">
 			<s:TextInput id="nameInput" editable="{ isUnsavedContact }" styleName="extraLargeFont" prompt="Name"/>
 			<s:Spacer height="100%"/>
-			<s:TextInput id="emailInput" styleName="mediumFont" prompt="Email"/>
-			<s:TextInput id="phoneInput" styleName="mediumFont" prompt="Phone"/>
+			<s:TextInput id="emailInput" width="450" styleName="mediumFont" prompt="Email"/>
+			<s:TextInput id="phoneInput" width="400" styleName="mediumFont" prompt="Phone"/>
 		</s:VGroup>
 
 		<s:Image height="256" width="256" source="{ GravatarUtils.urlFromEmail(data.email, 256) }" toolTip="Image source: Gravatar"/>

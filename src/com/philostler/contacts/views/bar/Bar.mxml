@@ -9,5 +9,5 @@
 
 	<s:Label text="Contacts" styleName="largeFont"/>
 	<s:Spacer width="100%"/>
-	<s:Label id="showingInformation" styleName="smallFont" text="{ contactCount + ' Contacts'}"/>
+	<s:Label id="showingInformation" styleName="smallFont" text="{ contactCount + ' Contact' + (contactCount != 1 ? 's' : '')}"/>
 </s:HGroup>
