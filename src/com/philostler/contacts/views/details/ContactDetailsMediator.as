@@ -1,0 +1,64 @@
+package com.philostler.contacts.views.details {
+	import com.philostler.contacts.models.Contact;
+	import com.philostler.contacts.signals.ContactSelectedSignal;
+	import com.philostler.contacts.signals.NewContactSignal;
+	import com.philostler.contacts.signals.RemoveContactSignal;
+	import com.philostler.contacts.signals.SaveContactSignal;
+	
+	import robotlegs.bender.bundles.mvcs.Mediator;
+	
+	public class ContactDetailsMediator extends Mediator {
+		[Inject]
+		public var view:ContactDetails;
+		
+		[Inject]
+		public var selectedContactChangedSignal:ContactSelectedSignal;
+		
+		[Inject]
+		public var newContactSignal:NewContactSignal;
+		
+		[Inject]
+		public var removeContactSignal:RemoveContactSignal;
+		
+		[Inject]
+		public var saveContactSignal:SaveContactSignal;
+
+		public override function initialize():void {
+			selectedContactChangedSignal.add(onSelectedContactChanged);
+			newContactSignal.add(onNewContact);
+			
+			view.deleteContactClicked.add(onDeleteContactClicked);
+			view.saveContactClickedAndValidated.add(onSaveContactClickedAndValidated);
+		}
+		
+		public override function destroy():void {
+			selectedContactChangedSignal.remove(onSelectedContactChanged);
+			newContactSignal.remove(onNewContact);
+			
+			view.deleteContactClicked.remove(onDeleteContactClicked);
+			view.saveContactClickedAndValidated.remove(onSaveContactClickedAndValidated);
+		}
+		
+		protected function onDeleteContactClicked(contact:Contact):void {
+			removeContactSignal.dispatch(contact);
+			
+			onNewContact();
+		}
+		
+		protected function onSaveContactClickedAndValidated(contact:Contact):void {
+			saveContactSignal.dispatch(contact);
+		}
+		
+		protected function onSelectedContactChanged(contact:Contact):void {
+			view.data = contact;
+			view.saveOptionEnabled = false;
+			view.visible = true;
+		}
+		
+		protected function onNewContact():void {
+			view.data = new Contact();
+			view.saveOptionEnabled = true;
+			view.visible = true;
+		}
+	}
+}

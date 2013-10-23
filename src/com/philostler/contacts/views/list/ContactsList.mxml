@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:signals="org.osflash.signals.*">
+
+	<fx:Declarations>
+		<s:ArrayCollection id="data"/>
+		<signals:Signal id="addContactClicked"/>
+		<signals:Signal id="contactSelected"/>
+	</fx:Declarations>
+
+	<s:List height="100%"
+			width="100%"
+			dataProvider="{ data }"
+			itemRenderer="com.philostler.contacts.views.list.ContactsListItemRenderer"
+			change="{ contactSelected.dispatch((event.target as List).selectedItem) }"/>
+	<s:Button height="40" width="100%" click="{ addContactClicked.dispatch() }"
+			  label="Add Contact" styleName="smallFont"/>
+</s:VGroup>

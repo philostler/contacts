@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx">
+	<s:layout>
+		<s:HorizontalLayout verticalAlign="middle"
+							paddingTop="5"
+							paddingLeft="5"
+							paddingRight="5"
+							paddingBottom="5"/>
+	</s:layout>
+
+	<fx:Script><![CDATA[
+		import com.philostler.contacts.utils.GravatarUtils;
+	]]></fx:Script>
+
+	<fx:Declarations/>
+	
+	<s:Image source="{ GravatarUtils.urlFromEmail(data.email) }"/>
+	<s:Label styleName="mediumFont" text="{data.name}"/>
+</s:ItemRenderer>

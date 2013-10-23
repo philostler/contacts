@@ -1,0 +1,18 @@
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+.smallFont {
+	fontSize: 16;
+}
+
+.mediumFont {
+	fontSize: 24;
+}
+
+.largeFont {
+	fontSize: 32;
+}
+
+.extraLargeFont {
+	fontSize: 48;
+}
