@@ -3,6 +3,7 @@ package com.philostler.contacts.models {
 	import com.philostler.contacts.signals.ContactsChangedSignal;
 	
 	import mx.collections.ArrayCollection;
+	import mx.events.CollectionEvent;
 
 	/**
 	 * Contacts model
@@ -17,6 +18,10 @@ package com.philostler.contacts.models {
 		protected var _contacts:ArrayCollection = new ArrayCollection();
 		protected var _selectedIndex:uint;
 		
+		public function ContactsModel() {
+			_contacts.addEventListener(CollectionEvent.COLLECTION_CHANGE, onContactsCollectionChange);
+		}
+		
 		public function get selected():Contact {
 			return _contacts.getItemAt(_selectedIndex) as Contact;
 		}
@@ -29,15 +34,13 @@ package com.philostler.contacts.models {
 		
 		public function add(contact:Contact):void {
 			_contacts.addItem(contact);
-			dispatchContactsUpdated();
 		}
 		
 		public function remove(contact:Contact):void {
 			_contacts.removeItemAt(_contacts.getItemIndex(contact));
-			dispatchContactsUpdated();
 		}
-		
-		protected function dispatchContactsUpdated():void {
+
+		protected function onContactsCollectionChange(event:CollectionEvent):void {
 			contactsChangedSignal.dispatch(_contacts.toArray());
 		}
 	}
