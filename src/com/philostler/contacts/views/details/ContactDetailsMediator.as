@@ -3,7 +3,7 @@ package com.philostler.contacts.views.details {
 	import com.philostler.contacts.signals.ContactSelectedSignal;
 	import com.philostler.contacts.signals.NewContactSignal;
 	import com.philostler.contacts.signals.RemoveContactSignal;
-	import com.philostler.contacts.signals.SaveContactSignal;
+	import com.philostler.contacts.signals.AddContactSignal;
 	
 	import robotlegs.bender.bundles.mvcs.Mediator;
 	
@@ -12,19 +12,19 @@ package com.philostler.contacts.views.details {
 		public var view:ContactDetails;
 		
 		[Inject]
-		public var selectedContactChangedSignal:ContactSelectedSignal;
+		public var addContactSignal:AddContactSignal;
+		
+		[Inject]
+		public var contactSelectedSignal:ContactSelectedSignal;
 		
 		[Inject]
 		public var newContactSignal:NewContactSignal;
 		
 		[Inject]
 		public var removeContactSignal:RemoveContactSignal;
-		
-		[Inject]
-		public var saveContactSignal:SaveContactSignal;
 
 		public override function initialize():void {
-			selectedContactChangedSignal.add(onSelectedContactChanged);
+			contactSelectedSignal.add(onContactSelected);
 			newContactSignal.add(onNewContact);
 			
 			view.deleteContactClicked.add(onDeleteContactClicked);
@@ -32,11 +32,17 @@ package com.philostler.contacts.views.details {
 		}
 		
 		public override function destroy():void {
-			selectedContactChangedSignal.remove(onSelectedContactChanged);
+			contactSelectedSignal.remove(onContactSelected);
 			newContactSignal.remove(onNewContact);
 			
 			view.deleteContactClicked.remove(onDeleteContactClicked);
 			view.saveContactClickedAndValidated.remove(onSaveContactClickedAndValidated);
+		}
+		
+		protected function onContactSelected(contact:Contact):void {
+			view.data = contact;
+			view.isUnsavedContact = false;
+			view.visible = true;
 		}
 		
 		protected function onDeleteContactClicked(contact:Contact):void {
@@ -46,18 +52,12 @@ package com.philostler.contacts.views.details {
 		}
 		
 		protected function onSaveContactClickedAndValidated(contact:Contact):void {
-			saveContactSignal.dispatch(contact);
-		}
-		
-		protected function onSelectedContactChanged(contact:Contact):void {
-			view.data = contact;
-			view.saveOptionEnabled = false;
-			view.visible = true;
+			addContactSignal.dispatch(contact);
 		}
 		
 		protected function onNewContact():void {
 			view.data = new Contact();
-			view.saveOptionEnabled = true;
+			view.isUnsavedContact = true;
 			view.visible = true;
 		}
 	}

@@ -6,7 +6,7 @@ package com.philostler.contacts {
 	import com.philostler.contacts.signals.ContactsChangedSignal;
 	import com.philostler.contacts.signals.NewContactSignal;
 	import com.philostler.contacts.signals.RemoveContactSignal;
-	import com.philostler.contacts.signals.SaveContactSignal;
+	import com.philostler.contacts.signals.AddContactSignal;
 	import com.philostler.contacts.views.bar.Bar;
 	import com.philostler.contacts.views.bar.BarMediator;
 	import com.philostler.contacts.views.details.ContactDetails;
@@ -31,8 +31,8 @@ package com.philostler.contacts {
 
 		public function configure():void {
 			// Commands
+			commandMap.map(AddContactSignal).toCommand(AddContactCommand);
 			commandMap.map(RemoveContactSignal).toCommand(RemoveContactCommand);
-			commandMap.map(SaveContactSignal).toCommand(AddContactCommand);
 			
 			// Non-command triggering Signals
 			injector.map(ContactsChangedSignal).asSingleton();
