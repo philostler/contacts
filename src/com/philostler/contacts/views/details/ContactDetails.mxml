@@ -16,14 +16,14 @@
 		protected function onSaveClicked():void {
 			if(!nameValidator.validate().results) {
 				saveContactClickedAndValidated.dispatch(data);
-				saveOptionEnabled = false;
+				isUnsavedContact = false;
 			}
 		}
 	]]></fx:Script>
 
 	<fx:Declarations>
 		<models:Contact id="data"/>
-		<fx:Boolean id="saveOptionEnabled"/>
+		<fx:Boolean id="isUnsavedContact"/>
 		<mx:StringValidator id="nameValidator" source="{ nameInput }" property="text" required="true"/>
 		<signals:Signal id="saveContactClickedAndValidated"/>
 		<signals:Signal id="deleteContactClicked"/>
@@ -36,15 +36,21 @@
 	
 	<s:HGroup width="100%" paddingRight="5">
 		<s:VGroup height="100%" width="100%">
-			<s:TextInput id="nameInput" editable="{ saveOptionEnabled }" styleName="extraLargeFont" prompt="Name"/>
+			<s:TextInput id="nameInput" editable="{ isUnsavedContact }" styleName="extraLargeFont" prompt="Name"/>
 			<s:Spacer height="100%"/>
 			<s:TextInput id="emailInput" styleName="mediumFont" prompt="Email"/>
 			<s:TextInput id="phoneInput" styleName="mediumFont" prompt="Phone"/>
 		</s:VGroup>
+
 		<s:Image height="256" width="256" source="{ GravatarUtils.urlFromEmail(data.email, 256) }" toolTip="Image source: Gravatar"/>
 	</s:HGroup>
+
 	<s:TextArea id="addressInput" styleName="mediumFont" prompt="Address"/>
+
 	<s:Spacer height="100%"/>
-	<s:Button id="saveButton" includeInLayout="{ !saveOptionEnabled }" visible="{ saveOptionEnabled }" height="40" width="100%" label="Save" styleName="smallFont" click="onSaveClicked()"/>
-	<s:Button id="deleteButton" includeInLayout="{ saveOptionEnabled }" visible="{ !saveOptionEnabled }" height="40" width="100%" label="Delete" styleName="smallFont" click="onDeleteClicked()"/>
+
+	<s:Button id="saveButton" height="40" width="100%" label="Save" styleName="smallFont" click="onSaveClicked()"
+			  includeInLayout="{ !isUnsavedContact }" visible="{ isUnsavedContact }"/>
+	<s:Button id="deleteButton" height="40" width="100%" label="Delete" styleName="smallFont" click="onDeleteClicked()"
+			  includeInLayout="{ isUnsavedContact }" visible="{ !isUnsavedContact }"/>
 </s:VGroup>
