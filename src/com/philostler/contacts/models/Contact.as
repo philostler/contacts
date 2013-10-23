@@ -1,6 +1,6 @@
 package com.philostler.contacts.models {
 	/**
-	 * 
+	 * Contact value object
 	 */
 	[Bindable]
 	public class Contact {

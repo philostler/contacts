@@ -4,6 +4,9 @@ package com.philostler.contacts.models {
 	
 	import mx.collections.ArrayCollection;
 
+	/**
+	 * Contacts model
+	 */
 	public class ContactsModel {
 		[Inject]
 		public var contactsChangedSignal:ContactsChangedSignal;
