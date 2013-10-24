@@ -1,6 +1,5 @@
 package com.philostler.contacts.views.list {
 	import com.philostler.contacts.models.Contact;
-	import com.philostler.contacts.models.ContactsModel;
 	import com.philostler.contacts.signals.ContactSelectedSignal;
 	import com.philostler.contacts.signals.ContactsChangedSignal;
 	import com.philostler.contacts.signals.NewContactSignal;

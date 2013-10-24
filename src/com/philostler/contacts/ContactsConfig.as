@@ -1,12 +1,12 @@
 package com.philostler.contacts {
-	import com.philostler.contacts.controller.RemoveContactCommand;
 	import com.philostler.contacts.controller.AddContactCommand;
+	import com.philostler.contacts.controller.RemoveContactCommand;
 	import com.philostler.contacts.models.ContactsModel;
+	import com.philostler.contacts.signals.AddContactSignal;
 	import com.philostler.contacts.signals.ContactSelectedSignal;
 	import com.philostler.contacts.signals.ContactsChangedSignal;
 	import com.philostler.contacts.signals.NewContactSignal;
 	import com.philostler.contacts.signals.RemoveContactSignal;
-	import com.philostler.contacts.signals.AddContactSignal;
 	import com.philostler.contacts.views.bar.Bar;
 	import com.philostler.contacts.views.bar.BarMediator;
 	import com.philostler.contacts.views.details.ContactDetails;
