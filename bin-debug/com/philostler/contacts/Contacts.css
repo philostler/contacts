@@ -16,3 +16,12 @@
 .extraLargeFont {
 	fontSize: 48;
 }
+
+s|Label#emailHint {
+	color: #708090;
+	fontStyle: italic;
+}
+
+mx|LinkButton#addExampleContact {
+	color: #00bfff;
+}
