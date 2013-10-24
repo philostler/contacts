@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx">
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:signals="org.osflash.signals.*">
 
 	<fx:Declarations>
 		<fx:Number id="contactCount">0</fx:Number>
+		<signals:Signal id="addExampleContactClicked"/>
 	</fx:Declarations>
 
 	<s:Label text="Contacts" styleName="largeFont"/>
+	<s:Spacer width="100"/>
+	<mx:LinkButton id="addExampleContact" styleName="smallFont" label="Add example contact..." click="{ addExampleContactClicked.dispatch() }"/>
 	<s:Spacer width="100%"/>
 	<s:Label id="showingInformation" styleName="smallFont" text="{ contactCount + ' Contact' + (contactCount != 1 ? 's' : '')}"/>
 </s:HGroup>
