@@ -9,6 +9,14 @@
 	<fx:Script><![CDATA[
 		import com.philostler.contacts.utils.GravatarUtils;
 		
+		public function isUnsavedContact(unsaved:Boolean):void {
+			nameInput.editable = unsaved;
+			saveButton.includeInLayout = !unsaved;
+			saveButton.visible = unsaved;
+			deleteButton.includeInLayout = unsaved;
+			deleteButton.visible = !unsaved;
+		}
+		
 		protected function onDeleteClicked():void {
 			deleteContactClicked.dispatch(data);
 		}
@@ -16,14 +24,13 @@
 		protected function onSaveClicked():void {
 			if(!nameValidator.validate().results) {
 				saveContactClickedAndValidated.dispatch(data);
-				isUnsavedContact = false;
+				isUnsavedContact(false);
 			}
 		}
 	]]></fx:Script>
 
 	<fx:Declarations>
 		<models:Contact id="data"/>
-		<fx:Boolean id="isUnsavedContact"/>
 		<mx:StringValidator id="nameValidator" source="{ nameInput }" property="text" required="true"/>
 		<signals:Signal id="saveContactClickedAndValidated"/>
 		<signals:Signal id="deleteContactClicked"/>
@@ -36,7 +43,7 @@
 	
 	<s:HGroup width="100%" paddingRight="5">
 		<s:VGroup height="100%" width="100%">
-			<s:TextInput id="nameInput" editable="{ isUnsavedContact }" styleName="extraLargeFont" prompt="Name"/>
+			<s:TextInput id="nameInput" styleName="extraLargeFont" prompt="Name"/>
 			<s:Spacer height="100%"/>
 			<s:TextInput id="emailInput" width="450" styleName="mediumFont" prompt="Email"/>
 			<s:Label id="emailHint" text="Hint: Use your Gravatar email address for profile picture" styleName="smallFont" paddingBottom="10"/>
@@ -51,8 +58,6 @@
 
 	<s:Spacer height="100%"/>
 
-	<s:Button id="saveButton" height="40" width="100%" label="Save" styleName="smallFont" click="onSaveClicked()"
-			  includeInLayout="{ !isUnsavedContact }" visible="{ isUnsavedContact }"/>
-	<s:Button id="deleteButton" height="40" width="100%" label="Delete" styleName="smallFont" click="onDeleteClicked()"
-			  includeInLayout="{ isUnsavedContact }" visible="{ !isUnsavedContact }"/>
+	<s:Button id="saveButton" height="40" width="100%" label="Save" styleName="smallFont" click="onSaveClicked()"/>
+	<s:Button id="deleteButton" height="40" width="100%" label="Delete" styleName="smallFont" click="onDeleteClicked()"/>
 </s:VGroup>

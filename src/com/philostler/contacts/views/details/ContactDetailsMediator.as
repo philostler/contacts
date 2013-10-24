@@ -41,7 +41,7 @@ package com.philostler.contacts.views.details {
 		
 		protected function onContactSelected(contact:Contact):void {
 			view.data = contact;
-			view.isUnsavedContact = false;
+			view.isUnsavedContact(false);
 			view.visible = true;
 		}
 		
@@ -57,7 +57,7 @@ package com.philostler.contacts.views.details {
 		
 		protected function onNewContact():void {
 			view.data = new Contact();
-			view.isUnsavedContact = true;
+			view.isUnsavedContact(true);
 			view.visible = true;
 		}
 	}
